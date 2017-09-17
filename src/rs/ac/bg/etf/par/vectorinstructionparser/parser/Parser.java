@@ -18,6 +18,7 @@ public class Parser {
         ArrayList<Instruction> ret = new ArrayList<>();
 
         // Split the string into lines
+        text = text.replaceAll("\r\n", "\n");
         String []lines = text.split("\n");
 
         for (String line : lines) {
@@ -33,7 +34,7 @@ public class Parser {
             }
 
             // Skip empty lines
-            if (restOfLine.matches("[[space]]*")) {
+            if (restOfLine.matches("\\s*")) {
                 continue;
             }
 

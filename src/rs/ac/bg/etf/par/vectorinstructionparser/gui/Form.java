@@ -1,5 +1,6 @@
 package rs.ac.bg.etf.par.vectorinstructionparser.gui;
 
+import rs.ac.bg.etf.par.vectorinstructionparser.graph.DataDependencyGraph;
 import rs.ac.bg.etf.par.vectorinstructionparser.helpers.NonWrappingTextPane;
 import rs.ac.bg.etf.par.vectorinstructionparser.helpers.TextLineNumber;
 import rs.ac.bg.etf.par.vectorinstructionparser.instructions.Instruction;
@@ -25,7 +26,10 @@ public class Form {
         parse.addActionListener((event) -> {
             String text = code.getText();
             ArrayList<Instruction> instructions = Parser.parse(text);
-            System.out.println(text);
+            DataDependencyGraph dataDependencyGraph = new DataDependencyGraph(instructions);
+            canvas.removeAll();
+            canvas.add(dataDependencyGraph.getVisualComponent());
+            canvas.revalidate();
         });
     }
 

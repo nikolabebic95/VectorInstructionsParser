@@ -11,6 +11,7 @@ public class InstructionFactory {
 
 
     public static Instruction create(String line) {
+        line = line.trim();
         int spaceIndex = line.indexOf(' ');
         String code = spaceIndex != -1 ? line.substring(0, spaceIndex) : line;
         String operands = spaceIndex != -1 ? line.substring(spaceIndex + 1) : "";
