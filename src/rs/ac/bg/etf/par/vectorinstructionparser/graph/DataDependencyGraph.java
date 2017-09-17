@@ -17,15 +17,12 @@ import java.util.Hashtable;
  */
 public class DataDependencyGraph {
     private final ArrayList<ArrayList<String>> matrix = new ArrayList<>();
-    private final ArrayList<Instruction> instructions;
 
-    private static final int SIZE = 30;
-    private static final int INTERVAL = 30;
+    private static final int SIZE = 40;
+    private static final int INTERVAL = 40;
     private static final int SPACE = 10;
 
     public DataDependencyGraph(ArrayList<Instruction> instructions) {
-        this.instructions = instructions;
-
         for (int i = 0; i < instructions.size(); i++) {
             matrix.add(new ArrayList<>());
             for (int j = 0; j < instructions.size(); j++) {
@@ -102,18 +99,19 @@ public class DataDependencyGraph {
         vertex.put(mxConstants.STYLE_FONTCOLOR, "#A9B7C6");
         vertex.put(mxConstants.STYLE_FILLCOLOR, "#CB772F");
         vertex.put(mxConstants.STYLE_STROKECOLOR, "#A9B7C6");
+        vertex.put(mxConstants.STYLE_FONTSIZE, 18);
         stylesheet.putCellStyle("vertex", vertex);
 
         Hashtable<String, Object> edge = new Hashtable<>();
         edge.put(mxConstants.STYLE_ROUNDED, true);
         edge.put(mxConstants.STYLE_ORTHOGONAL, false);
-        //edge.put(mxConstants.STYLE_EDGE, mxConstants.EDGESTYLE_ORTHOGONAL);
         edge.put(mxConstants.STYLE_SHAPE, mxConstants.SHAPE_CONNECTOR);
         edge.put(mxConstants.STYLE_ENDARROW, mxConstants.ARROW_CLASSIC);
         edge.put(mxConstants.STYLE_VERTICAL_ALIGN, mxConstants.ALIGN_MIDDLE);
         edge.put(mxConstants.STYLE_ALIGN, mxConstants.ALIGN_CENTER);
         edge.put(mxConstants.STYLE_STROKECOLOR, "#A9B7C6");
-        edge.put(mxConstants.STYLE_FONTCOLOR, "#CB772F");
+        edge.put(mxConstants.STYLE_FONTSIZE, 18);
+        edge.put(mxConstants.STYLE_FONTCOLOR, "#9876AA");
         stylesheet.putCellStyle("edge", edge);
 
         Object parent = mxGraph.getDefaultParent();
@@ -145,8 +143,19 @@ public class DataDependencyGraph {
             mxGraph.getModel().endUpdate();
         }
 
+        mxGraph.setCellsEditable(false);
+        mxGraph.setAllowDanglingEdges(false);
+        mxGraph.setAllowLoops(false);
+        mxGraph.setCellsDeletable(false);
+        mxGraph.setCellsCloneable(false);
+        mxGraph.setCellsDisconnectable(false);
+        mxGraph.setDropEnabled(false);
+        mxGraph.setSplitEnabled(false);
+        mxGraph.setCellsBendable(false);
+        mxGraph.setConnectableEdges(false);
+
         mxGraphComponent ret = new mxGraphComponent(mxGraph);
-        ret.setEnabled(false);
+        ret.setConnectable(false);
         ret.getViewport().setBackground(new Color(0x2b, 0x2b, 0x2b));
         ret.setBorder(new EmptyBorder(0, 0, 0, 0));
         return ret;
