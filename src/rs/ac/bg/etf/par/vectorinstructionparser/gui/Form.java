@@ -22,6 +22,14 @@ public class Form {
     private JPanel canvas;
     private JScrollPane scrollPane;
 
+    public JTextPane getCode() {
+        return code;
+    }
+
+    public JPanel getCanvas() {
+        return canvas;
+    }
+
     public Form() {
         parse.addActionListener((event) -> {
             String text = code.getText();
@@ -35,7 +43,9 @@ public class Form {
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Vector instruction parser");
-        frame.setContentPane(new Form().mainPanel);
+        Form form = new Form();
+        frame.setContentPane(form.mainPanel);
+        frame.setJMenuBar(new MenuBar(form));
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
@@ -202,5 +212,6 @@ public class Form {
         AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY,
                 StyleConstants.TabSet, tabset);
         code.setParagraphAttributes(aset, false);
+        code.setText("lv v1, r1\nlv v2, r2\naddv.d v3, v2, v1\n");
     }
 }
