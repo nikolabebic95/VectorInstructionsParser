@@ -1,6 +1,7 @@
 package rs.ac.bg.etf.par.vectorinstructionparser.gui;
 
 import rs.ac.bg.etf.par.vectorinstructionparser.graph.DataDependencyGraph;
+import rs.ac.bg.etf.par.vectorinstructionparser.helpers.LineHighlighter;
 import rs.ac.bg.etf.par.vectorinstructionparser.helpers.NonWrappingTextPane;
 import rs.ac.bg.etf.par.vectorinstructionparser.helpers.TextLineNumber;
 import rs.ac.bg.etf.par.vectorinstructionparser.instructions.Instruction;
@@ -195,6 +196,14 @@ public class Form {
 
         code = new NonWrappingTextPane(doc);
         TextLineNumber tln = new TextLineNumber(code);
+        LineHighlighter lh = new LineHighlighter(code, new Color(0x32, 0x32, 0x32));
+        Highlighter highlighter = code.getHighlighter();
+        try {
+            highlighter.addHighlight(0, code.getText().length(), lh);
+        } catch (Exception e) {
+            // Ignore
+        }
+
         tln.setBackground(new Color(0x2b, 0x2b, 0x2b));
         tln.setForeground(new Color(0xa9, 0xb7, 0xc6));
         tln.setFont(new Font("Consolas", Font.PLAIN, 18));
